@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-fraudshield-frontend
+    env: static
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: frontend/dist
+
+routes:
+  - type: rewrite
+    source: /*
+    destination: /index.html
