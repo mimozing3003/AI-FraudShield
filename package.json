@@ -1,0 +1,20 @@
+{
+  "name": "ai-fraudshield",
+  "version": "1.0.0",
+  "description": "Advanced AI-powered fraud detection platform by Saumojit Roy 2025",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "vercel-build": "pip install -r api/requirements.txt"
+  },
+  "keywords": [
+    "ai",
+    "fraud",
+    "detection",
+    "deepfake",
+    "phishing",
+    "voice"
+  ],
+  "author": "Saumojit Roy",
+  "license": "MIT"
+}
