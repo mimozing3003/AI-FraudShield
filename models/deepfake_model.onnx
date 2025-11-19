@@ -1,0 +1,20 @@
+ai-fraudshield:ç
+'
+input
+shape_constreshaped"Reshape
++
+reshapedmean"
+ReduceMean*
+axes@@ 
+
+meanoutput"Identitydeepfake-detection-model*:ÿÿÿÿÿÿÿÿÿBshape_constZ!
+input
+
+
+à
+à
+b
+output
+
+
+B

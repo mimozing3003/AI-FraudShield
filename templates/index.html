@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI FraudShield - Advanced Fraud Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-shield-alt"></i> AI FraudShield</h1>
+            <p>Advanced AI-powered fraud detection platform</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Protect Yourself from Digital Fraud</h2>
+            <p>Our cutting-edge AI analyzes media and content to detect deepfakes, synthetic voices, and phishing attempts with industry-leading accuracy.</p>
+        </section>
+
+        <div class="detection-grid">
+            <!-- Deepfake Detection Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-camera"></i> Deepfake Detection</h3>
+                </div>
+                <div class="card-body">
+                    <p>Upload an image or video to check for AI-generated manipulations. Our system analyzes facial inconsistencies and digital artifacts.</p>
+                    <form id="deepfake-form" enctype="multipart/form-data">
+                        <input type="file" id="deepfake-file" name="file" accept="image/*,video/*" required>
+                        <button type="submit"><i class="fas fa-search"></i> Analyze Media</button>
+                    </form>
+                    <div id="deepfake-result" class="result-container hidden"></div>
+                </div>
+            </div>
+
+            <!-- Voice Analysis Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-microphone-alt"></i> Voice Authenticity</h3>
+                </div>
+                <div class="card-body">
+                    <p>Upload an audio file to detect AI-generated synthetic voices. We analyze spectral patterns and vocal irregularities.</p>
+                    <form id="voice-form" enctype="multipart/form-data">
+                        <input type="file" id="voice-file" name="file" accept="audio/*" required>
+                        <button type="submit"><i class="fas fa-wave-square"></i> Analyze Audio</button>
+                    </form>
+                    <div id="voice-result" class="result-container hidden"></div>
+                </div>
+            </div>
+
+            <!-- Phishing Detection Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-link"></i> Phishing Detector</h3>
+                </div>
+                <div class="card-body">
+                    <p>Enter a URL or text content to check for phishing attempts. Our hybrid ML + rule-based system detects suspicious patterns.</p>
+                    <form id="phishing-form">
+                        <textarea id="phishing-input" name="input_text" placeholder="Enter URL or email content..." required></textarea>
+                        <button type="submit"><i class="fas fa-spider"></i> Check for Phishing</button>
+                    </form>
+                    <div id="phishing-result" class="result-container hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="how-it-works">
+            <h2>How AI FraudShield Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Upload Content</h3>
+                    <p>Submit images, videos, audio files, URLs, or text for analysis</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI Analysis</h3>
+                    <p>Our models scan for digital fingerprints of manipulation</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Fraud Detection</h3>
+                    <p>Receive instant risk assessment and detailed explanations</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <h2>Key Features</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Real-time Analysis</h3>
+                    <p>Get results in seconds with our optimized models</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Privacy Focused</h3>
+                    <p>All processing happens locally, your data never leaves your device</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Continuously Updated</h3>
+                    <p>Our models are regularly updated to detect new fraud techniques</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AI FraudShield by Saumojit Roy. Advanced protection against digital fraud.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
