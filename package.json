@@ -4,8 +4,8 @@
   "description": "Advanced AI-powered fraud detection platform by Saumojit Roy 2025",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'No build step required'",
-    "vercel-build": "pip install -r api/requirements.txt",
+    "build": "cd frontend && npm run build",
+    "vercel-build": "cd frontend && npm run build",
     "frontend:dev": "cd frontend && npm run dev",
     "frontend:build": "cd frontend && npm run build",
     "frontend:preview": "cd frontend && npm run preview"
