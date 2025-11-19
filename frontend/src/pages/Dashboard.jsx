@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import ApiService from '../services/api'
 import './Dashboard.css'
 
 const Dashboard = ({ user }) => {
@@ -8,53 +9,51 @@ const Dashboard = ({ user }) => {
   const [text, setText] = useState('')
   const [result, setResult] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0])
     setResult(null)
+    setError(null)
   }
 
   const handleTextChange = (e) => {
     setText(e.target.value)
     setResult(null)
+    setError(null)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
+    setError(null)
     
-    // Simulate API call
-    setTimeout(() => {
-      // Generate mock results based on active tab
-      let mockResult
+    try {
+      let response
       if (activeTab === 'deepfake') {
-        mockResult = {
-          is_deepfake: Math.random() > 0.5,
-          confidence: Math.floor(Math.random() * 40) + 60, // 60-99%
-          explanation: "The facial features show inconsistencies typical of AI-generated content. Detected anomalies in eye movement and facial symmetry."
+        if (!file) {
+          throw new Error('Please select a file')
         }
+        response = await ApiService.detectDeepfake(file)
       } else if (activeTab === 'voice') {
-        mockResult = {
-          is_fake: Math.random() > 0.5,
-          confidence: Math.floor(Math.random() * 40) + 60, // 60-99%
-          explanation: "Audio spectral patterns indicate synthetic generation. Detected unnatural frequency distributions and lack of human vocal irregularities."
+        if (!file) {
+          throw new Error('Please select a file')
         }
+        response = await ApiService.detectVoice(file)
       } else {
-        const riskPercentage = Math.floor(Math.random() * 100)
-        let riskLevel = "Low"
-        if (riskPercentage > 70) riskLevel = "High"
-        else if (riskPercentage > 40) riskLevel = "Medium"
-        
-        mockResult = {
-          risk_level: riskLevel,
-          risk_percentage: riskPercentage,
-          explanation: "ML model analysis complete. No major rule violations detected."
+        if (!text.trim()) {
+          throw new Error('Please enter text or URL')
         }
+        response = await ApiService.detectPhishing(text)
       }
       
-      setResult(mockResult)
+      setResult(response)
+    } catch (err) {
+      console.error('API Error:', err)
+      setError(err.message || 'An error occurred while processing your request')
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   const tabs = [
@@ -148,8 +147,20 @@ const Dashboard = ({ user }) => {
               </button>
             </form>
 
+            {/* Error Message */}
+            {error && (
+              <motion.div 
+                className="error-message"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <p>Error: {error}</p>
+              </motion.div>
+            )}
+
             {/* Results */}
-            {result && (
+            {result && !error && (
               <motion.div 
                 className="results"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -200,14 +211,14 @@ const getResultClass = (result) => {
 }
 
 const getResultBadgeText = (result) => {
-  if (result.is_deepfake) return 'High Risk'
-  if (result.is_fake) return 'High Risk'
+  if (result.is_deepfake !== undefined) return result.is_deepfake ? 'High Risk' : 'Low Risk'
+  if (result.is_fake !== undefined) return result.is_fake ? 'High Risk' : 'Low Risk'
   if (result.risk_level) return result.risk_level + ' Risk'
   return 'Low Risk'
 }
 
 const getResultConfidence = (result) => {
-  if (result.confidence !== undefined) return result.confidence
+  if (result.confidence !== undefined) return Math.round(result.confidence * 100)
   if (result.risk_percentage !== undefined) return result.risk_percentage
   return 0
 }
