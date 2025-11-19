@@ -2,6 +2,10 @@
 
 Advanced AI-powered fraud detection platform that can detect deepfakes, synthetic voices, and phishing attempts.
 
+## Live Demo
+
+Check out the live application: [https://ai-fraudshield-mwpt.onrender.com](https://ai-fraudshield-mwpt.onrender.com)
+
 ## Features
 
 - **Deepfake Detection**: Analyze images and videos for AI-generated manipulations
