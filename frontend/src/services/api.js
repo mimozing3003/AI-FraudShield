@@ -1,5 +1,6 @@
 // API service to communicate with the backend
-const API_BASE_URL = 'http://localhost:8000';
+// Use relative paths for same-origin requests, or specify full URL for development
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000';
 
 class ApiService {
   // Deepfake detection
@@ -7,7 +8,7 @@ class ApiService {
     const formData = new FormData();
     formData.append('file', file);
     
-    const response = await fetch(`${API_BASE_URL}/deepfake`, {
+    const response = await fetch(`${API_BASE_URL}/api/deepfake`, {
       method: 'POST',
       body: formData
     });
@@ -24,7 +25,7 @@ class ApiService {
     const formData = new FormData();
     formData.append('file', file);
     
-    const response = await fetch(`${API_BASE_URL}/voicecheck`, {
+    const response = await fetch(`${API_BASE_URL}/api/voicecheck`, {
       method: 'POST',
       body: formData
     });
@@ -41,7 +42,7 @@ class ApiService {
     const formData = new FormData();
     formData.append('input_text', text);
     
-    const response = await fetch(`${API_BASE_URL}/phishingcheck`, {
+    const response = await fetch(`${API_BASE_URL}/api/phishingcheck`, {
       method: 'POST',
       body: formData
     });

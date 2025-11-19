@@ -1,7 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from typing import Optional
 import os
 import json
@@ -16,17 +15,11 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="AI FraudShield", description="Advanced AI-powered fraud detection platform")
 
-# Mount static files and templates
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+# Serve React frontend as static files
+app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root():
-    with open("templates/index.html", "r") as file:
-        html_content = file.read()
-    return HTMLResponse(content=html_content, status_code=200)
-
-@app.post("/deepfake")
+# API routes for fraud detection
+@app.post("/api/deepfake")
 async def deepfake_check(file: UploadFile = File(...)):
     # Validate file type
     allowed_types = ["image/jpeg", "image/png", "image/jpg", "video/mp4", "video/avi", "video/mov"]
@@ -55,7 +48,7 @@ async def deepfake_check(file: UploadFile = File(...)):
         if os.path.exists(file_location):
             os.remove(file_location)
 
-@app.post("/voicecheck")
+@app.post("/api/voicecheck")
 async def voice_check(file: UploadFile = File(...)):
     # Validate file type
     allowed_types = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/mp4"]
@@ -84,7 +77,7 @@ async def voice_check(file: UploadFile = File(...)):
         if os.path.exists(file_location):
             os.remove(file_location)
 
-@app.post("/phishingcheck")
+@app.post("/api/phishingcheck")
 async def phishing_check(input_text: str = Form(...)):
     if not input_text.strip():
         raise HTTPException(status_code=400, detail="Input text cannot be empty.")
@@ -103,6 +96,12 @@ async def phishing_check(input_text: str = Form(...)):
         logger.error(f"Error processing phishing detection: {str(e)}")
         logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Error analyzing input: {str(e)}")
+
+# Serve React frontend for all other routes
+@app.get("/{full_path:path}")
+async def serve_react_app(full_path: str):
+    # This will serve the React app for any route not handled by the API
+    return HTMLResponse(content=open("frontend/dist/index.html").read(), status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
