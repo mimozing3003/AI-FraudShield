@@ -2,23 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python",
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
       "config": {
-        "runtime": "python3.9",
-        "includeFiles": [
-          "static/**",
-          "templates/**",
-          "utils/**",
-          "models/**"
-        ]
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/index.py"
+      "dest": "/index.html"
     }
   ]
 }
