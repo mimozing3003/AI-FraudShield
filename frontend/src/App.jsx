@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import ApiTest from './components/ApiTest'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import About from './pages/About'
@@ -49,6 +50,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <ApiTest />
       </div>
     </Router>
   )

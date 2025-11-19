@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "echo 'No build step required'",
-    "vercel-build": "pip install -r api/requirements.txt"
+    "vercel-build": "pip install -r api/requirements.txt",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:preview": "cd frontend && npm run preview"
   },
   "keywords": [
     "ai",
